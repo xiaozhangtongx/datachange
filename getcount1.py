@@ -20,8 +20,8 @@ x_max = data['LNG'].max()
 y_min = data['LAT'].min()
 y_max = data['LAT'].max()
 
-row_1 = 300
-column_1 = 300
+row_1 = 1000
+column_1 = 1000
 
 # 统计每个子区域中点的数量
 x = []

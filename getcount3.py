@@ -16,8 +16,7 @@ DM1 = np.array(df)
 df = pd.read_csv("res/DM2.csv", header=None)
 DM2 = np.array(df)
 
-minPoint = 20
-
+minPoint = 18
 
 delete = []
 dataset = []
