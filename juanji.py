@@ -39,3 +39,6 @@ def juanji():
     print('卷积运算结果 :')
     print(res)
     np.savetxt(r'res/DM2.csv', res, fmt='%d', delimiter=',')
+
+
+# juanji()

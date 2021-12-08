@@ -20,7 +20,9 @@ def shoures():
     # print(x)
     plt.title("dataset")
 
-    ax1.set_ylim([0, 90])
+    ax1.set_ylim([-90, 90])
     ax1.set_xlim([-180, 180])
     plt.plot(x, y, '.', label='ship', color='black')
     plt.show()
+
+# shoures()

@@ -8,7 +8,7 @@ import show3  # 展示结果
 getdata.getData(0.2, 2)
 
 # 2.划分网格，参数为网格的大小
-getcount1.grid(100, 100)
+getcount1.grid(180, 360)
 
 # 3.卷积运算
 juanji.juanji()
@@ -18,4 +18,3 @@ getcount3.Datapreprocessing(18)
 
 # 5.结果展示
 show3.shoures()
-

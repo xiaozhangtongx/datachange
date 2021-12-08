@@ -13,3 +13,6 @@ def getD():
         for j in range(len(df)):
             a.append([i, j, df[i][j], i * len(df) + j + 1])
     np.savetxt(r'res/D.csv', a, fmt='%d,%d,%d,%d', delimiter=',')
+
+
+# getD()

@@ -15,10 +15,14 @@ def grid(row_1, column_1):
     mpl.rcParams["axes.unicode_minus"] = False
     data = pd.read_csv('res/alldata1.csv', names=['TIME', 'MMSI', 'LNG', 'LAT'])
     data = data.drop_duplicates(keep='first', inplace=False)
-    x_min = data['LNG'].min()
-    x_max = data['LNG'].max()
-    y_min = data['LAT'].min()
-    y_max = data['LAT'].max()
+    # x_min = data['LNG'].min()
+    # x_max = data['LNG'].max()
+    # y_min = data['LAT'].min()
+    # y_max = data['LAT'].max()
+    x_min = -180
+    x_max = 180
+    y_min = -90
+    y_max = 90
     # 统计每个子区域中点的数量
     x = []
     y = []
@@ -44,11 +48,11 @@ def grid(row_1, column_1):
         # 得到二维矩阵坐标索引，并转换为一维ID，即： 列坐标区域（向下取整）+ 1 + 行坐标区域 * 列数
         lable = floor((x - x_min) / column) + 1 + int((y - y_min) / row) * column_num
         # 把最上面是那个点划分给下一行
-        if lable >= column_1 * row_1:
-            lable = lable - 10
+        # if lable >= column_1 * row_1:
+        #     lable = lable - 10
         return lable
 
-    ## 对整个区域使用 1000 X 1000 划分
+    # 对整个区域使用 1000 X 1000 划分
     data['label'] = data.apply(lambda x: generalID(x['x'], x['y'], row_1, column_1), axis=1)
     print(np.array(data))
     np.savetxt(r'res/5.csv', np.array(data), fmt='%f,%f,%d', delimiter=',')
@@ -66,11 +70,15 @@ def grid(row_1, column_1):
     for i in range(row_1 * column_1):
         for j in range(length):
             if i == key[j]:
-                a[floor(i / row_1)][floor(i % column_1 - 1)] = values[j]
+                a[floor(i / column_1)][floor(i % column_1 - 1)] = values[j]
                 break
             else:
-                a[floor(i / row_1)][floor(i % column_1 - 1)] = 0
+                a[floor(i / column_1)][floor(i % column_1 - 1)] = 0
 
     # a = a[::-1]
-    np.savetxt(r'res/DM1.csv', a, fmt='%d', delimiter=',')
-    print(f'{row_1}*{column_1}的网格划分成功！')
+    # np.savetxt(r'res/DM1.csv', a, fmt='%d', delimiter=',')
+    print(f'{column_1}*{row_1}的网格划分成功！')
+
+
+# grid(180, 360);
+# grid(100, 100)
