@@ -11,30 +11,28 @@ import pandas as pd
 import numpy as np
 from math import *
 
-df = pd.read_csv("res/DM1.csv", header=None)
-DM1 = np.array(df)
-df = pd.read_csv("res/DM2.csv", header=None)
-DM2 = np.array(df)
 
-minPoint = 18
+def Datapreprocessing(minPoint):
+    df = pd.read_csv("res/DM1.csv", header=None)
+    DM1 = np.array(df)
+    df = pd.read_csv("res/DM2.csv", header=None)
+    DM2 = np.array(df)
+    delete = []
+    dataset = []
+    a1 = []
+    row_1 = len(DM2)
+    column_1 = len(DM2)
+    print(len(DM2))
+    for i in range(row_1):
+        for j in range(column_1):
+            if minPoint > DM2[i][j] and DM2[i][j] > 0 or DM2[i][j] == DM1[i][j] and DM2[i][j] > 0:
+                delete.append(i * row_1 + j)
+            elif DM2[i][j] > minPoint:
+                dataset.append(i * row_1 + j)
+    print("保留数据个数:", len(dataset))
+    print("删除的异常数据个数:", len(delete))
+    dataset = np.array(dataset)
+    print("保留数据的编号：", dataset)
 
-delete = []
-dataset = []
-a1 = []
-row_1 = len(DM2)
-column_1 = len(DM2)
-print(len(DM2))
-for i in range(row_1):
-    for j in range(column_1):
-        if minPoint > DM2[i][j] and DM2[i][j] > 0 or DM2[i][j] == DM1[i][j] and DM2[i][j] > 0:
-            delete.append(i * row_1 + j)
-        elif DM2[i][j] > minPoint:
-            dataset.append(i * row_1 + j)
-
-print(len(delete))
-print(len(dataset))
-dataset = np.array(dataset)
-print(dataset)
-
-np.savetxt(r'res/3.csv', dataset, fmt='%d', delimiter=',')
-np.savetxt(r'res/4.csv', delete, fmt='%d', delimiter=',')
+    np.savetxt(r'res/3.csv', dataset, fmt='%d', delimiter=',')
+    np.savetxt(r'res/4.csv', delete, fmt='%d', delimiter=',')

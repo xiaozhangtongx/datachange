@@ -2,12 +2,14 @@
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv("res/DM1.csv", header=None)
-df = np.array(df)
 
-a = []
+def getD():
+    df = pd.read_csv("res/DM1.csv", header=None)
+    df = np.array(df)
 
-for i in range(len(df)):
-    for j in range(len(df)):
-        a.append([i, j, df[i][j], i * len(df) + j + 1])
-np.savetxt(r'res/D.csv', a, fmt='%d,%d,%d,%d', delimiter=',')
+    a = []
+
+    for i in range(len(df)):
+        for j in range(len(df)):
+            a.append([i, j, df[i][j], i * len(df) + j + 1])
+    np.savetxt(r'res/D.csv', a, fmt='%d,%d,%d,%d', delimiter=',')
