@@ -8,6 +8,7 @@ import numpy as np
 import os
 import csv
 from math import *
+import show0
 
 
 def grid(row_1, column_1):
@@ -46,7 +47,7 @@ def grid(row_1, column_1):
         # 把范围根据行数等分切割
         row = (y_max - y_min) / row_num
         # 得到二维矩阵坐标索引，并转换为一维ID，即： 列坐标区域（向下取整）+ 1 + 行坐标区域 * 列数
-        lable = floor((x - x_min) / column) + 1 + int((y - y_min) / row) * column_num
+        lable = floor((x - x_min) / column) + int((y - y_min) / row) * column_num
         # 把最上面是那个点划分给下一行
         # if lable >= column_1 * row_1:
         #     lable = lable - 10
@@ -61,24 +62,28 @@ def grid(row_1, column_1):
     D = {}
     for k in b:
         D[k] = D.get(k, 0) + 1
+        # print(D[k])
     key = list(D.keys())
     values = list(D.values())
-
+    print(D)
+    print(key)
+    print(values)
     # 构建二纬度矩阵
     a = np.ones((row_1, column_1))
     length = len(key)
     for i in range(row_1 * column_1):
         for j in range(length):
             if i == key[j]:
-                a[floor(i / column_1)][floor(i % column_1 - 1)] = values[j]
+                a[floor(i / column_1)][floor(i % column_1)] = values[j]
                 break
             else:
-                a[floor(i / column_1)][floor(i % column_1 - 1)] = 0
+                a[floor(i / column_1)][floor(i % column_1)] = 0
 
     # a = a[::-1]
-    # np.savetxt(r'res/DM1.csv', a, fmt='%d', delimiter=',')
+    np.savetxt(r'res/DM1.csv', a, fmt='%d', delimiter=',')
     print(f'{column_1}*{row_1}的网格划分成功！')
 
 
 # grid(180, 360);
-# grid(100, 100)
+grid(50, 100)
+show0.show()
