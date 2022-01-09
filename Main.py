@@ -11,7 +11,7 @@ import show3  # 展示结果
 # getcount1.grid(360, 360)
 #
 # # 3.卷积运算
-# juanji.juanji()
+juanji.juanji()
 
 # 4.统计卷积后网格中的数据,参数为删除点的阈值
 getcount3.Datapreprocessing(10)

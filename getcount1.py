@@ -27,18 +27,10 @@ def grid(row_1, column_1):
     # 统计每个子区域中点的数量
     x = []
     y = []
-    n = 0
-    for row1 in data['LNG']:
-        n += 1
-        x.append(row1)
-    for row2 in data['LAT']:
-        y.append(row2)
-    c = {"x": x, 'y': y}
-    data = pd.DataFrame(c)
 
     # 使用矩阵分隔网格
     # 生成网格ID column_num等于列数，row_num等于行数
-    def generalID(x, y, column_num, row_num):
+    def generalID(x, y, row_num, column_num):
         # 若在范围外的点，返回-1
         if x < x_min or x > x_max or y < y_min or y > y_max:
             return -1
@@ -54,21 +46,23 @@ def grid(row_1, column_1):
         return lable
 
     # 对整个区域使用 1000 X 1000 划分
-    data['label'] = data.apply(lambda x: generalID(x['x'], x['y'], row_1, column_1), axis=1)
-    print(np.array(data))
+    data['label'] = data.apply(lambda x: generalID(x['LNG'], x['LAT'], row_1, column_1), axis=1)
+    data = data[['LNG', 'LAT', 'label']]
     np.savetxt(r'res/5.csv', np.array(data), fmt='%f,%f,%d', delimiter=',')
-    a = data.label
+
+    a = data['label']
     b = np.sort(a)
     D = {}
     for k in b:
         D[k] = D.get(k, 0) + 1
-        # print(D[k])
     key = list(D.keys())
     values = list(D.values())
-    print(D)
-    print(key)
-    print(values)
+    # print(D)
+    # print(key)
+    # print(values)
     # 构建二纬度矩阵
+
+    tex = []
     a = np.ones((row_1, column_1))
     length = len(key)
     for i in range(row_1 * column_1):
@@ -79,11 +73,11 @@ def grid(row_1, column_1):
             else:
                 a[floor(i / column_1)][floor(i % column_1)] = 0
 
-    # a = a[::-1]
+    print(tex)
     np.savetxt(r'res/DM1.csv', a, fmt='%d', delimiter=',')
     print(f'{column_1}*{row_1}的网格划分成功！')
 
 
 # grid(180, 360);
-grid(50, 100)
-show0.show()
+# grid(180, 360)
+# show0.show()

@@ -13,12 +13,13 @@ def show():
     f, ax = plt.subplots()
     ax.xaxis.tick_top()
 
-    sns.heatmap(corr, cmap='OrRd', xticklabels=100, yticklabels=100, vmax=4, vmin=0, ax=ax)
+    sns.heatmap(corr, cmap='OrRd', xticklabels=100, yticklabels=100, vmax=4, vmin=0, ax=ax).invert_yaxis()
 
     plt.show()
+
 
 # 设置Axes的标题
 
 # f.savefig("heatmap.jpg", dpi=1000, bbox_inches="tight")
 
-# show()
+show()
